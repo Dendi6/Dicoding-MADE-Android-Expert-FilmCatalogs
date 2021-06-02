@@ -51,7 +51,7 @@ class DetailActivity : AppCompatActivity() {
             ViewModelProvider(this, factory)[DetailActivityViewModel::class.java]
         detailActivityViewModel.setSelectedFilm(film.id)
 
-        if (film.type == "movies") {
+        if (film.type == "movie") {
             detailActivityViewModel.getMovies().observe(this, { detailMovies ->
                 if (detailMovies != null) {
                     when (detailMovies.status) {
@@ -144,7 +144,7 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(BuildConfig.IMAGES + "/${data.poster}")
             .into(binding.imagesDetail)
-
+        
         binding.titleDetail.text = data.title
         binding.overview.text = data.overview
     }

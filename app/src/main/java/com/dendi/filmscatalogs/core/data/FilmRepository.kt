@@ -57,7 +57,7 @@ class FilmRepository private constructor(
             public override fun saveCallResult(data: List<ListResponse>) {
                 val listItem = ArrayList<ListEntity>()
                 for (response in data) {
-                    val item = response.id?.let {
+                    val item = response.id.let {
                         ListEntity(
                             it,
                             response.title,
@@ -65,11 +65,11 @@ class FilmRepository private constructor(
                             response.backdropPath,
                             response.overview,
                             false,
-                            "movies"
+                            response.mediaType
                         )
                     }
 
-                    item?.let { listItem.add(it) }
+                    item.let { listItem.add(it) }
                 }
 
                 localDataSource.insertFilm(listItem)
@@ -99,7 +99,7 @@ class FilmRepository private constructor(
             public override fun saveCallResult(data: List<ListResponse>) {
                 val listItem = ArrayList<ListEntity>()
                 for (response in data) {
-                    val item = response.id?.let {
+                    val item = response.id.let {
                         ListEntity(
                             it,
                             response.name,
@@ -107,11 +107,11 @@ class FilmRepository private constructor(
                             response.backdropPath,
                             response.overview,
                             false,
-                            "tv"
+                            response.mediaType
                         )
                     }
 
-                    item?.let { listItem.add(it) }
+                    item.let { listItem.add(it) }
                 }
 
                 localDataSource.insertFilm(listItem)

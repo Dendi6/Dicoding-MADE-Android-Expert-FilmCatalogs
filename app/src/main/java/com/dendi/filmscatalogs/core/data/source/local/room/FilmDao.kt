@@ -8,7 +8,7 @@ import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 
 @Dao
 interface FilmDao {
-    @Query("SELECT * FROM listentities WHERE type = 'movies'")
+    @Query("SELECT * FROM listentities WHERE type = 'movie'")
     fun getMovies(): DataSource.Factory<Int, ListEntity>
 
     @Query("SELECT * FROM listentities WHERE type = 'tv'")

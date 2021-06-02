@@ -23,4 +23,7 @@ data class ListResponse(
 
     @field:SerializedName("overview")
     val overview: String,
+
+    @field:SerializedName("media_type")
+    val mediaType: String
 ) : Parcelable
