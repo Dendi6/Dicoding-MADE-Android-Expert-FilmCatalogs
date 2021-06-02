@@ -7,20 +7,20 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ListResponse(
     @field:SerializedName("id")
-    val id: Int? = 0,
+    val id: Int,
 
     @field:SerializedName("title")
-    val title: String? = null,
+    val title: String,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String,
 
     @field:SerializedName("poster_path")
-    val posterPath: String? = null,
+    val posterPath: String,
 
     @field:SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    val backdropPath: String,
 
     @field:SerializedName("overview")
-    val overview: String? = null,
+    val overview: String,
 ) : Parcelable

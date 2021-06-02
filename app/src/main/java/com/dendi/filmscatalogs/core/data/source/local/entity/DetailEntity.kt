@@ -10,17 +10,14 @@ data class DetailEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: Int? = 0,
+    var id: Int,
 
     @ColumnInfo(name = "poster")
-    var poster: String? = null,
+    var poster: String,
 
     @ColumnInfo(name = "title")
-    var title: String? = null,
-
-    @ColumnInfo(name = "name")
-    var name: String? = null,
+    var title: String,
 
     @ColumnInfo(name = "overview")
-    var overview: String? = null
+    var overview: String
 )

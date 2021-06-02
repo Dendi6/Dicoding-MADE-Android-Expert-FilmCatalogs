@@ -8,14 +8,14 @@ data class DetailResponse(
     val id: Int,
 
     @field:SerializedName("backdrop_path")
-    val backdropPath: String? = null,
+    val backdropPath: String,
 
     @field:SerializedName("title")
-    val title: String? = null,
+    val title: String,
 
     @field:SerializedName("name")
-    val name: String? = null,
+    val name: String,
 
     @field:SerializedName("overview")
-    val overview: String? = null,
+    val overview: String,
 )

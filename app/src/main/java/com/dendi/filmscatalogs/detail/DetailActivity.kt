@@ -38,20 +38,20 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val factory = ViewModelFactory.getInstance(this)
+        val film = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
+
         supportActionBar?.apply {
             elevation = 0f
             setDisplayHomeAsUpEnabled(true)
+            setActionBarTitle(film.title)
         }
-
-        val factory = ViewModelFactory.getInstance(this)
-        val film = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
 
         detailActivityViewModel =
             ViewModelProvider(this, factory)[DetailActivityViewModel::class.java]
         detailActivityViewModel.setSelectedFilm(film.id)
 
         if (film.type == "movies") {
-            setActionBarTitle(film.title.toString())
             detailActivityViewModel.getMovies().observe(this, { detailMovies ->
                 if (detailMovies != null) {
                     when (detailMovies.status) {
@@ -68,7 +68,6 @@ class DetailActivity : AppCompatActivity() {
                 }
             })
         } else {
-            setActionBarTitle(film.name.toString())
             detailActivityViewModel.getTvShow().observe(this, { detailTv ->
                 if (detailTv != null) {
                     when (detailTv.status) {
@@ -146,15 +145,7 @@ class DetailActivity : AppCompatActivity() {
             .load(BuildConfig.IMAGES + "/${data.poster}")
             .into(binding.imagesDetail)
 
-        val film = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
-
-        val text: String = if (film.type == "movies") {
-            "${data.title}"
-        } else {
-            "${data.name}"
-        }
-
-        binding.titleDetail.text = text
+        binding.titleDetail.text = data.title
         binding.overview.text = data.overview
     }
 
@@ -178,12 +169,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun share(listEntity: ListEntity) {
-        val title = if (listEntity.type == "movies") {
-            listEntity.title
-        } else {
-            listEntity.name
-        }
-
+        val title =  listEntity.title
         val overview = listEntity.overview
         val textShare = getString(R.string.text_share, title, overview)
         val intent = Intent(Intent.ACTION_SEND)

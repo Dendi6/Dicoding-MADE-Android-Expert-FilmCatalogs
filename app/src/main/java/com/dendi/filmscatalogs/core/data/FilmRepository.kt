@@ -61,7 +61,6 @@ class FilmRepository private constructor(
                         ListEntity(
                             it,
                             response.title,
-                            null,
                             response.posterPath,
                             response.backdropPath,
                             response.overview,
@@ -103,7 +102,6 @@ class FilmRepository private constructor(
                     val item = response.id?.let {
                         ListEntity(
                             it,
-                            null,
                             response.name,
                             response.posterPath,
                             response.backdropPath,
@@ -146,7 +144,6 @@ class FilmRepository private constructor(
                     data.id,
                     data.backdropPath,
                     data.title,
-                    data.name,
                     data.overview
                 )
 
@@ -171,7 +168,6 @@ class FilmRepository private constructor(
                 val detailEntity = DetailEntity(
                     data.id,
                     data.backdropPath,
-                    data.title,
                     data.name,
                     data.overview
                 )

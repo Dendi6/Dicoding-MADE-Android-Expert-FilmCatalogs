@@ -13,26 +13,23 @@ data class ListEntity(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: Int = 0,
+    var id: Int,
 
     @ColumnInfo(name = "title")
-    var title: String? = null,
-
-    @ColumnInfo(name = "name")
-    var name: String? = null,
+    var title: String,
 
     @ColumnInfo(name = "images")
-    var images: String? = null,
+    var images: String,
 
     @ColumnInfo(name = "poster")
-    var poster: String? = null,
+    var poster: String,
 
     @ColumnInfo(name = "overview")
-    var overview: String? = null,
+    var overview: String,
 
     @ColumnInfo(name = "favorited")
-    var favorited: Boolean = false,
+    var favorited: Boolean,
 
     @ColumnInfo(name = "type")
-    var type: String? = null,
+    var type: String,
 ) : Parcelable
