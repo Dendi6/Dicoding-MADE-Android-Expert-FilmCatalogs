@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.dendi.filmscatalogs.core.data.source.local.LocalDataSource
-import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.data.source.remote.RemoteDataSource
 import com.dendi.filmscatalogs.core.utils.AppExecutors

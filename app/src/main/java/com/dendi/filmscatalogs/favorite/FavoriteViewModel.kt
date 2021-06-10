@@ -2,15 +2,10 @@ package com.dendi.filmscatalogs.favorite
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.dendi.filmscatalogs.core.data.FilmRepository
-import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
+import com.dendi.filmscatalogs.core.domain.model.Film
+import com.dendi.filmscatalogs.core.domain.usecase.FilmUseCase
 
-class FavoriteViewModel(private val filmRepository: FilmRepository) : ViewModel() {
+class FavoriteViewModel(private val filmUseCase: FilmUseCase) : ViewModel() {
 
-    fun getFavorite(): LiveData<List<ListEntity>> = filmRepository.getFavorited()
-
-    fun setFavorited(filmsEntity: ListEntity) {
-        val newState = !filmsEntity.favorited
-        filmRepository.setFilmFavorite(filmsEntity, newState)
-    }
+    fun getFavorite(): LiveData<List<Film>> = filmUseCase.getFavorited()
 }

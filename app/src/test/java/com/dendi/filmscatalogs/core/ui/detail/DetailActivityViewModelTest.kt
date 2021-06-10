@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.dendi.filmscatalogs.core.data.FilmRepository
-import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.utils.DataDummy
 import com.dendi.filmscatalogs.core.vo.Resource

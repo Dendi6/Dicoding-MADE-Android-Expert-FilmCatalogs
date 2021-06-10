@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dendi.filmscatalogs.core.data.source.remote.network.ApiConfig
-import com.dendi.filmscatalogs.core.data.source.remote.response.DetailResponse
 import com.dendi.filmscatalogs.core.data.source.remote.response.ListResponse
 import com.dendi.filmscatalogs.core.data.source.remote.response.ResponseItem
 import com.dendi.filmscatalogs.core.utils.EspressoIdlingResource
@@ -78,61 +77,5 @@ class RemoteDataSource {
         })
 
         return resultFilm
-    }
-
-    fun getDetailMovies(id: Int): LiveData<ApiResponse<DetailResponse>> {
-        EspressoIdlingResource.increment()
-        val resultDetail = MutableLiveData<ApiResponse<DetailResponse>>()
-
-        val client = ApiConfig.getApiService().detailMovies(id)
-        client.enqueue(object : Callback<DetailResponse> {
-            override fun onResponse(
-                call: Call<DetailResponse>,
-                response: Response<DetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    resultDetail.value = response.body()?.let { ApiResponse.success(it) }
-                    EspressoIdlingResource.decrement()
-                } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-                    EspressoIdlingResource.decrement()
-                }
-            }
-
-            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
-                EspressoIdlingResource.decrement()
-            }
-        })
-
-        return resultDetail
-    }
-
-    fun getDetailTvShow(id: Int): LiveData<ApiResponse<DetailResponse>> {
-        EspressoIdlingResource.increment()
-        val resultDetail = MutableLiveData<ApiResponse<DetailResponse>>()
-
-        val client = ApiConfig.getApiService().detailTv(id)
-        client.enqueue(object : Callback<DetailResponse> {
-            override fun onResponse(
-                call: Call<DetailResponse>,
-                response: Response<DetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    resultDetail.value = response.body()?.let { ApiResponse.success(it) }
-                    EspressoIdlingResource.decrement()
-                } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-                    EspressoIdlingResource.decrement()
-                }
-            }
-
-            override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
-                EspressoIdlingResource.decrement()
-            }
-        })
-
-        return resultDetail
     }
 }

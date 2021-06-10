@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,10 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dendi.filmscatalogs.BuildConfig
 import com.dendi.filmscatalogs.R
-import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
+import com.dendi.filmscatalogs.core.domain.model.Film
 import com.dendi.filmscatalogs.core.ui.ViewModelFactory
-import com.dendi.filmscatalogs.core.vo.Status
 import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
@@ -39,7 +37,7 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val factory = ViewModelFactory.getInstance(this)
-        val film = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
+        val film = intent.getParcelableExtra<Film>(EXTRA_DATA) as Film
 
         supportActionBar?.apply {
             elevation = 0f
@@ -51,55 +49,7 @@ class DetailActivity : AppCompatActivity() {
             ViewModelProvider(this, factory)[DetailActivityViewModel::class.java]
         detailActivityViewModel.setSelectedFilm(film.id)
 
-        if (film.type == "movie") {
-            detailActivityViewModel.getMovies().observe(this, { detailMovies ->
-                if (detailMovies != null) {
-                    when (detailMovies.status) {
-                        Status.LOADING -> showLoading(true)
-                        Status.SUCCESS -> {
-                            showLoading(false)
-                            detailMovies.data?.let { view(it) }
-                        }
-                        Status.ERROR -> {
-                            showLoading(false)
-                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            })
-        } else {
-            detailActivityViewModel.getTvShow().observe(this, { detailTv ->
-                if (detailTv != null) {
-                    when (detailTv.status) {
-                        Status.LOADING -> showLoading(true)
-                        Status.SUCCESS -> {
-                            showLoading(false)
-                            detailTv.data?.let { view(it) }
-                        }
-                        Status.ERROR -> {
-                            showLoading(false)
-                            Toast.makeText(this, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            })
-        }
-    }
-
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-            binding.imagesDetail.visibility = View.GONE
-            binding.titleDetail.visibility = View.GONE
-            binding.overview.visibility = View.GONE
-            binding.text.visibility = View.GONE
-        } else {
-            binding.progressBar.visibility = View.GONE
-            binding.imagesDetail.visibility = View.VISIBLE
-            binding.titleDetail.visibility = View.VISIBLE
-            binding.overview.visibility = View.VISIBLE
-            binding.text.visibility = View.VISIBLE
-        }
+        view(film)
     }
 
     private fun setActionBarTitle(title: String) {
@@ -112,7 +62,7 @@ class DetailActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.detail_menu, menu)
 
         this.menu = menu
-        val films = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
+        val films = intent.getParcelableExtra<Film>(EXTRA_DATA) as Film
         setBookmarkState(films.favorited)
 
         return super.onCreateOptionsMenu(menu)
@@ -126,11 +76,11 @@ class DetailActivity : AppCompatActivity() {
     private fun setMode(selectedMode: Int) {
         when (selectedMode) {
             R.id.share -> {
-                val films = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
+                val films = intent.getParcelableExtra<Film>(EXTRA_DATA) as Film
                 share(films)
             }
             R.id.action_bookmark -> {
-                val films = intent.getParcelableExtra<ListEntity>(EXTRA_DATA) as ListEntity
+                val films = intent.getParcelableExtra<Film>(EXTRA_DATA) as Film
                 val newState = !films.favorited
 
                 detailActivityViewModel.setFavorite(films, newState)
@@ -140,7 +90,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun view(data: DetailEntity) {
+    private fun view(data: Film) {
         Glide.with(this)
             .load(BuildConfig.IMAGES + "/${data.poster}")
             .into(binding.imagesDetail)
@@ -168,7 +118,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun share(listEntity: ListEntity) {
+    private fun share(listEntity: Film) {
         val title = listEntity.title
         val overview = listEntity.overview
         val textShare = getString(R.string.text_share, title, overview)

@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dendi.filmscatalogs.core.data.FilmRepository
 import com.dendi.filmscatalogs.core.di.Injection
+import com.dendi.filmscatalogs.core.domain.usecase.FilmUseCase
 import com.dendi.filmscatalogs.detail.DetailActivityViewModel
 import com.dendi.filmscatalogs.favorite.FavoriteViewModel
 import com.dendi.filmscatalogs.home.HomeViewModel
 
-class ViewModelFactory private constructor(private val mFilmsRepository: FilmRepository) :
+class ViewModelFactory private constructor(private val filmUseCase: FilmUseCase) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -18,7 +19,7 @@ class ViewModelFactory private constructor(private val mFilmsRepository: FilmRep
 
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context)).apply {
+                instance ?: ViewModelFactory(Injection.provideFilmUseCase(context)).apply {
                     instance = this
                 }
             }
@@ -28,13 +29,13 @@ class ViewModelFactory private constructor(private val mFilmsRepository: FilmRep
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(mFilmsRepository) as T
+                HomeViewModel(filmUseCase) as T
             }
             modelClass.isAssignableFrom(FavoriteViewModel::class.java) -> {
-                FavoriteViewModel(mFilmsRepository) as T
+                FavoriteViewModel(filmUseCase) as T
             }
             modelClass.isAssignableFrom(DetailActivityViewModel::class.java) -> {
-                DetailActivityViewModel(mFilmsRepository) as T
+                DetailActivityViewModel(filmUseCase) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

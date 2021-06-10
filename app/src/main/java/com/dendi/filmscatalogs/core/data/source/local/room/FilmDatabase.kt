@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 
 @Database(
-    entities = [ListEntity::class, DetailEntity::class],
+    entities = [ListEntity::class],
     version = 1,
     exportSchema = false
 )

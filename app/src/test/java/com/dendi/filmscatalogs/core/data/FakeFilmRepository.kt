@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dendi.filmscatalogs.core.data.source.local.LocalDataSource
-import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.data.source.remote.ApiResponse
 import com.dendi.filmscatalogs.core.data.source.remote.RemoteDataSource
-import com.dendi.filmscatalogs.core.data.source.remote.response.DetailResponse
 import com.dendi.filmscatalogs.core.data.source.remote.response.ListResponse
 import com.dendi.filmscatalogs.core.utils.AppExecutors
 import com.dendi.filmscatalogs.core.vo.Resource
