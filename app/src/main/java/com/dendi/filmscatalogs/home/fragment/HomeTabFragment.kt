@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.core.ui.AdapterItems
-import com.dendi.filmscatalogs.home.HomeViewModel
 import com.dendi.filmscatalogs.core.ui.ViewModelFactory
 import com.dendi.filmscatalogs.core.vo.Status
+import com.dendi.filmscatalogs.home.HomeViewModel
 
 class HomeTabFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
@@ -59,7 +59,7 @@ class HomeTabFragment : Fragment() {
                         Status.LOADING -> progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             progressBar.visibility = View.GONE
-                            homeAdapter.submitList(listMovie.data)
+                            homeAdapter.setData(listMovie.data)
                         }
                         Status.ERROR -> {
                             progressBar.visibility = View.GONE
@@ -75,7 +75,7 @@ class HomeTabFragment : Fragment() {
                         Status.LOADING -> progressBar.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             progressBar.visibility = View.GONE
-                            homeAdapter.submitList(listTvShow.data)
+                            homeAdapter.setData(listTvShow.data)
                         }
                         Status.ERROR -> {
                             progressBar.visibility = View.GONE

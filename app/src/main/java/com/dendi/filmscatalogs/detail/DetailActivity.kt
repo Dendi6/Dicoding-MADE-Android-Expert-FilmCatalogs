@@ -14,9 +14,9 @@ import com.dendi.filmscatalogs.BuildConfig
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.core.data.source.local.entity.DetailEntity
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
-import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
 import com.dendi.filmscatalogs.core.ui.ViewModelFactory
 import com.dendi.filmscatalogs.core.vo.Status
+import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
@@ -144,7 +144,7 @@ class DetailActivity : AppCompatActivity() {
         Glide.with(this)
             .load(BuildConfig.IMAGES + "/${data.poster}")
             .into(binding.imagesDetail)
-        
+
         binding.titleDetail.text = data.title
         binding.overview.text = data.overview
     }
@@ -169,7 +169,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun share(listEntity: ListEntity) {
-        val title =  listEntity.title
+        val title = listEntity.title
         val overview = listEntity.overview
         val textShare = getString(R.string.text_share, title, overview)
         val intent = Intent(Intent.ACTION_SEND)
