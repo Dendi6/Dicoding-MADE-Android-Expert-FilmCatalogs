@@ -11,6 +11,7 @@ object DataMapper {
             val films = ListEntity(
                 id = it.id,
                 title = it.title,
+                name = it.name,
                 images = it.posterPath,
                 poster = it.backdropPath,
                 overview = it.overview,
@@ -27,6 +28,7 @@ object DataMapper {
             Film(
                 id = it.id,
                 title = it.title,
+                name = it.name,
                 images = it.images,
                 poster = it.poster,
                 overview = it.overview,
@@ -38,6 +40,7 @@ object DataMapper {
     fun mapDomainToEntity(input: Film) = ListEntity(
         id = input.id,
         title = input.title,
+        name = input.name,
         images = input.images,
         poster = input.poster,
         overview = input.overview,

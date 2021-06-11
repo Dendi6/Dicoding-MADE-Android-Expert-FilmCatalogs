@@ -1,8 +1,8 @@
 package com.dendi.filmscatalogs.core.data.source.local
 
-import androidx.lifecycle.LiveData
 import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.data.source.local.room.FilmDao
+import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource private constructor(private val mFilmDao: FilmDao) {
     companion object {
@@ -12,13 +12,13 @@ class LocalDataSource private constructor(private val mFilmDao: FilmDao) {
             INSTANCE ?: LocalDataSource(filmDao).apply { INSTANCE = this }
     }
 
-    fun getMovies(): LiveData<List<ListEntity>> = mFilmDao.getMovies()
+    fun getMovies(): Flow<List<ListEntity>> = mFilmDao.getMovies()
 
-    fun getTvShow(): LiveData<List<ListEntity>> = mFilmDao.getTvShow()
+    fun getTvShow(): Flow<List<ListEntity>> = mFilmDao.getTvShow()
 
-    fun getFavorited(): LiveData<List<ListEntity>> = mFilmDao.getFavorite()
+    fun getFavorited(): Flow<List<ListEntity>> = mFilmDao.getFavorite()
 
-    fun insertFilm(film: List<ListEntity>) = mFilmDao.insertFilm(film)
+    suspend fun insertFilm(film: List<ListEntity>) = mFilmDao.insertFilm(film)
 
     fun setFilmFavorite(film: ListEntity, newState: Boolean) {
         film.favorited = newState

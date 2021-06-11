@@ -12,6 +12,7 @@ object DataDummy {
             ListEntity(
                 399566,
                 "Godzilla vs. Kong",
+                " ",
                 "/inJjDhCjfhh3RtrJWBmmDqeuSYC.jpg",
                 "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
                 "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
@@ -29,6 +30,7 @@ object DataDummy {
         tvShow.add(
             ListEntity(
                 1399,
+                "",
                 "Game of Thrones",
                 "/suopoADq0k8YZr4dQXcU6pToj6s.jpg",
                 "/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",

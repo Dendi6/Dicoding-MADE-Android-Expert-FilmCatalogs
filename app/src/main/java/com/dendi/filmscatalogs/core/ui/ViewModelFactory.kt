@@ -3,7 +3,6 @@ package com.dendi.filmscatalogs.core.ui
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.dendi.filmscatalogs.core.data.FilmRepository
 import com.dendi.filmscatalogs.core.di.Injection
 import com.dendi.filmscatalogs.core.domain.usecase.FilmUseCase
 import com.dendi.filmscatalogs.detail.DetailActivityViewModel

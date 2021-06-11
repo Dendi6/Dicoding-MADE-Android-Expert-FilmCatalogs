@@ -1,81 +1,56 @@
 package com.dendi.filmscatalogs.core.data.source.remote
 
-import android.content.ContentValues
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.dendi.filmscatalogs.core.data.source.remote.network.ApiConfig
+import com.dendi.filmscatalogs.core.data.source.remote.network.ApiService
 import com.dendi.filmscatalogs.core.data.source.remote.response.ListResponse
-import com.dendi.filmscatalogs.core.data.source.remote.response.ResponseItem
-import com.dendi.filmscatalogs.core.utils.EspressoIdlingResource
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
-class RemoteDataSource {
+class RemoteDataSource private constructor(private val apiService: ApiService) {
     companion object {
         @Volatile
         private var instance: RemoteDataSource? = null
 
-        fun getInstance(): RemoteDataSource =
+        fun getInstance(service: ApiService): RemoteDataSource =
             instance ?: synchronized(this) {
-                instance ?: RemoteDataSource().apply { instance = this }
+                instance ?: RemoteDataSource(service)
             }
     }
 
-    fun getAllMovies(): LiveData<ApiResponse<List<ListResponse>>> {
-        EspressoIdlingResource.increment()
-        val resultFilm = MutableLiveData<ApiResponse<List<ListResponse>>>()
-
-        val client = ApiConfig.getApiService().getMovies()
-        client.enqueue(object : Callback<ResponseItem> {
-            override fun onResponse(
-                call: Call<ResponseItem>,
-                response: Response<ResponseItem>
-            ) {
-                if (response.isSuccessful) {
-                    resultFilm.value = response.body()?.let { ApiResponse.success(it.results) }
-                    EspressoIdlingResource.decrement()
+    suspend fun getAllMovies(): Flow<ApiResponse<List<ListResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getMovies()
+                val dataArray = response.results
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.results))
                 } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Empty)
                 }
-            }
 
-            override fun onFailure(call: Call<ResponseItem>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
-                EspressoIdlingResource.decrement()
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-        })
-
-        return resultFilm
+        }.flowOn(Dispatchers.IO)
     }
 
-    fun getAllTvShow(): LiveData<ApiResponse<List<ListResponse>>> {
-        EspressoIdlingResource.increment()
-        val resultFilm = MutableLiveData<ApiResponse<List<ListResponse>>>()
-
-        val client = ApiConfig.getApiService().getTv()
-        client.enqueue(object : Callback<ResponseItem> {
-            override fun onResponse(
-                call: Call<ResponseItem>,
-                response: Response<ResponseItem>
-            ) {
-                if (response.isSuccessful) {
-                    resultFilm.value = response.body()?.let { ApiResponse.success(it.results) }
-                    EspressoIdlingResource.decrement()
+    suspend fun getAllTvShow(): Flow<ApiResponse<List<ListResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTv()
+                val dataArray = response.results
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.results))
                 } else {
-                    Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
-                    EspressoIdlingResource.decrement()
+                    emit(ApiResponse.Empty)
                 }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
-
-            override fun onFailure(call: Call<ResponseItem>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
-                EspressoIdlingResource.decrement()
-            }
-        })
-
-        return resultFilm
+        }.flowOn(Dispatchers.IO)
     }
 }

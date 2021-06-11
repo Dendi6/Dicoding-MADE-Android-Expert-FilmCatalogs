@@ -16,7 +16,10 @@ data class ListEntity(
     var id: Int,
 
     @ColumnInfo(name = "title")
-    var title: String,
+    var title: String? = null,
+
+    @ColumnInfo(name = "name")
+    var name: String? = null,
 
     @ColumnInfo(name = "images")
     var images: String,

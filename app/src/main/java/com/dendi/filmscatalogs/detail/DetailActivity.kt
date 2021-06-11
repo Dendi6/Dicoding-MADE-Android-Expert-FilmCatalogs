@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dendi.filmscatalogs.BuildConfig
 import com.dendi.filmscatalogs.R
-import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.domain.model.Film
 import com.dendi.filmscatalogs.core.ui.ViewModelFactory
 import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
@@ -42,7 +41,11 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.apply {
             elevation = 0f
             setDisplayHomeAsUpEnabled(true)
-            setActionBarTitle(film.title)
+            if (film.type == "tv"){
+                film.name?.let { setActionBarTitle(it) }
+            } else {
+                film.title?.let { setActionBarTitle(it) }
+            }
         }
 
         detailActivityViewModel =

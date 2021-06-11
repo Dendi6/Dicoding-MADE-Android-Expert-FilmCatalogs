@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.core.ui.AdapterItems
 import com.dendi.filmscatalogs.core.ui.ViewModelFactory
-import com.dendi.filmscatalogs.core.vo.Status
+import com.dendi.filmscatalogs.core.vo.Resource
 import com.dendi.filmscatalogs.home.HomeViewModel
 
 class HomeTabFragment : Fragment() {
@@ -53,15 +53,15 @@ class HomeTabFragment : Fragment() {
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
         if (index == 0) {
-            homeViewModel.getMovies().observe(this, { listMovie ->
+            homeViewModel.getMovies().observe(viewLifecycleOwner, { listMovie ->
                 if (listMovie != null) {
-                    when (listMovie.status) {
-                        Status.LOADING -> progressBar.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
+                    when (listMovie) {
+                        is Resource.Loading -> progressBar.visibility = View.VISIBLE
+                        is Resource.Success -> {
                             progressBar.visibility = View.GONE
                             homeAdapter.setData(listMovie.data)
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             progressBar.visibility = View.GONE
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
@@ -69,15 +69,15 @@ class HomeTabFragment : Fragment() {
                 }
             })
         } else {
-            homeViewModel.getTvShow().observe(this, { listTvShow ->
+            homeViewModel.getTvShow().observe(viewLifecycleOwner, { listTvShow ->
                 if (listTvShow != null) {
-                    when (listTvShow.status) {
-                        Status.LOADING -> progressBar.visibility = View.VISIBLE
-                        Status.SUCCESS -> {
+                    when (listTvShow) {
+                        is Resource.Loading -> progressBar.visibility = View.VISIBLE
+                        is Resource.Success -> {
                             progressBar.visibility = View.GONE
                             homeAdapter.setData(listTvShow.data)
                         }
-                        Status.ERROR -> {
+                        is Resource.Error -> {
                             progressBar.visibility = View.GONE
                             Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
                         }
