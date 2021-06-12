@@ -3,25 +3,25 @@ package com.dendi.filmscatalogs.core.data
 import androidx.lifecycle.LiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.dendi.filmscatalogs.core.data.source.local.LocalDataSource
-import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
-import com.dendi.filmscatalogs.core.data.source.remote.ApiResponse
-import com.dendi.filmscatalogs.core.data.source.remote.RemoteDataSource
+import com.dendi.filmcatalogs.core.data.source.local.LocalDataSource
+import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
+import com.dendi.filmcatalogs.core.data.source.remote.ApiResponse
+import com.dendi.filmcatalogs.core.data.source.remote.RemoteDataSource
 import com.dendi.filmscatalogs.core.data.source.remote.response.ListResponse
 import com.dendi.filmscatalogs.core.utils.AppExecutors
 import com.dendi.filmscatalogs.core.vo.Resource
 
 class FakeFilmRepository constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: com.dendi.filmcatalogs.core.data.source.remote.RemoteDataSource,
+    private val localDataSource: com.dendi.filmcatalogs.core.data.source.local.LocalDataSource,
     private val appExecutors: AppExecutors
 ) :
-    FilmDataSource {
+    com.dendi.filmcatalogs.core.data.FilmDataSource {
 
-    override fun getAllMovies(): LiveData<Resource<PagedList<ListEntity>>> {
+    override fun getAllMovies(): LiveData<Resource<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>> {
         return object :
-            NetworkBoundResource<PagedList<ListEntity>, List<ListResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagedList<ListEntity>> {
+            com.dendi.filmcatalogs.core.data.NetworkBoundResource<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>, List<ListResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(4)
@@ -31,17 +31,17 @@ class FakeFilmRepository constructor(
                 return LivePagedListBuilder(localDataSource.getMovies(), config).build()
             }
 
-            override fun shouldFetch(data: PagedList<ListEntity>?): Boolean =
+            override fun shouldFetch(data: PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<ListResponse>>> =
+            public override fun createCall(): LiveData<com.dendi.filmcatalogs.core.data.source.remote.ApiResponse<List<ListResponse>>> =
                 remoteDataSource.getAllMovies()
 
             public override fun saveCallResult(data: List<ListResponse>) {
-                val listItem = ArrayList<ListEntity>()
+                val listItem = ArrayList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>()
                 for (response in data) {
                     val item = response.id?.let {
-                        ListEntity(
+                        com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity(
                             it,
                             response.title,
                             null,
@@ -61,10 +61,10 @@ class FakeFilmRepository constructor(
         }.asLiveData()
     }
 
-    override fun getAllTvShow(): LiveData<Resource<PagedList<ListEntity>>> {
+    override fun getAllTvShow(): LiveData<Resource<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>> {
         return object :
-            NetworkBoundResource<PagedList<ListEntity>, List<ListResponse>>(appExecutors) {
-            public override fun loadFromDB(): LiveData<PagedList<ListEntity>> {
+            com.dendi.filmcatalogs.core.data.NetworkBoundResource<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>, List<ListResponse>>(appExecutors) {
+            public override fun loadFromDB(): LiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>> {
                 val config = PagedList.Config.Builder()
                     .setEnablePlaceholders(false)
                     .setInitialLoadSizeHint(4)
@@ -74,17 +74,17 @@ class FakeFilmRepository constructor(
                 return LivePagedListBuilder(localDataSource.getTvShow(), config).build()
             }
 
-            override fun shouldFetch(data: PagedList<ListEntity>?): Boolean =
+            override fun shouldFetch(data: PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            public override fun createCall(): LiveData<ApiResponse<List<ListResponse>>> =
+            public override fun createCall(): LiveData<com.dendi.filmcatalogs.core.data.source.remote.ApiResponse<List<ListResponse>>> =
                 remoteDataSource.getAllTvShow()
 
             public override fun saveCallResult(data: List<ListResponse>) {
-                val listItem = ArrayList<ListEntity>()
+                val listItem = ArrayList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>()
                 for (response in data) {
                     val item = response.id?.let {
-                        ListEntity(
+                        com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity(
                             it,
                             null,
                             response.name,
@@ -104,7 +104,7 @@ class FakeFilmRepository constructor(
         }.asLiveData()
     }
 
-    override fun getFavorited(): LiveData<PagedList<ListEntity>> {
+    override fun getFavorited(): LiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>> {
         val config = PagedList.Config.Builder()
             .setEnablePlaceholders(false)
             .setInitialLoadSizeHint(4)
@@ -114,14 +114,14 @@ class FakeFilmRepository constructor(
     }
 
     override fun getDetailMovies(id: Int): LiveData<Resource<DetailEntity>> {
-        return object : NetworkBoundResource<DetailEntity, DetailResponse>(appExecutors) {
+        return object : com.dendi.filmcatalogs.core.data.NetworkBoundResource<DetailEntity, DetailResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<DetailEntity> =
                 localDataSource.getDetailById(id)
 
             override fun shouldFetch(data: DetailEntity?): Boolean =
                 data == null
 
-            override fun createCall(): LiveData<ApiResponse<DetailResponse>> =
+            override fun createCall(): LiveData<com.dendi.filmcatalogs.core.data.source.remote.ApiResponse<DetailResponse>> =
                 remoteDataSource.getDetailMovies(id)
 
             override fun saveCallResult(data: DetailResponse) {
@@ -140,14 +140,14 @@ class FakeFilmRepository constructor(
     }
 
     override fun getDetailTvShow(id: Int): LiveData<Resource<DetailEntity>> {
-        return object : NetworkBoundResource<DetailEntity, DetailResponse>(appExecutors) {
+        return object : com.dendi.filmcatalogs.core.data.NetworkBoundResource<DetailEntity, DetailResponse>(appExecutors) {
             override fun loadFromDB(): LiveData<DetailEntity> =
                 localDataSource.getDetailById(id)
 
             override fun shouldFetch(data: DetailEntity?): Boolean =
                 data == null
 
-            override fun createCall(): LiveData<ApiResponse<DetailResponse>> =
+            override fun createCall(): LiveData<com.dendi.filmcatalogs.core.data.source.remote.ApiResponse<DetailResponse>> =
                 remoteDataSource.getDetailTvShow(id)
 
             override fun saveCallResult(data: DetailResponse) {
@@ -165,6 +165,6 @@ class FakeFilmRepository constructor(
         }.asLiveData()
     }
 
-    override fun setFilmFavorite(film: ListEntity, state: Boolean) =
+    override fun setFilmFavorite(film: com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity, state: Boolean) =
         localDataSource.setFilmFavorite(film, state)
 }

@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
-import com.dendi.filmscatalogs.core.data.FilmRepository
-import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
+import com.dendi.filmcatalogs.core.data.FilmRepository
+import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.utils.DataDummy
 import com.dendi.filmscatalogs.favorite.FavoriteViewModel
 import org.junit.Assert
@@ -29,10 +29,10 @@ class FavoriteViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var filmRepository: FilmRepository
+    private lateinit var filmRepository: com.dendi.filmcatalogs.core.data.FilmRepository
 
     @Mock
-    private lateinit var observer: Observer<PagedList<ListEntity>>
+    private lateinit var observer: Observer<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>
 
     @Before
     fun setUp() {
@@ -41,7 +41,7 @@ class FavoriteViewModelTest {
 
     @Test
     fun `getFavorited should be success`() {
-        val expected = MutableLiveData<PagedList<ListEntity>>()
+        val expected = MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         expected.value = PagedTestDataSources.snapshot(DataDummy.generateDummyMovies())
 
         `when`(filmRepository.getFavorited()).thenReturn(expected)
@@ -58,7 +58,7 @@ class FavoriteViewModelTest {
 
     @Test
     fun `getFavorited should be success but data is empty`() {
-        val expected = MutableLiveData<PagedList<ListEntity>>()
+        val expected = MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         expected.value = PagedTestDataSources.snapshot()
 
         `when`(filmRepository.getFavorited()).thenReturn(expected)
@@ -73,10 +73,10 @@ class FavoriteViewModelTest {
         )
     }
 
-    class PagedTestDataSources private constructor(private val items: List<ListEntity>) :
-        PositionalDataSource<ListEntity>() {
+    class PagedTestDataSources private constructor(private val items: List<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>) :
+        PositionalDataSource<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>() {
         companion object {
-            fun snapshot(items: List<ListEntity> = listOf()): PagedList<ListEntity> {
+            fun snapshot(items: List<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity> = listOf()): PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity> {
                 return PagedList.Builder(PagedTestDataSources(items), 10)
                     .setNotifyExecutor(Executors.newSingleThreadExecutor())
                     .setFetchExecutor(Executors.newSingleThreadExecutor())
@@ -86,12 +86,12 @@ class FavoriteViewModelTest {
 
         override fun loadInitial(
             params: LoadInitialParams,
-            callback: LoadInitialCallback<ListEntity>
+            callback: LoadInitialCallback<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>
         ) {
             callback.onResult(items, 0, items.size)
         }
 
-        override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<ListEntity>) {
+        override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>) {
             val start = params.startPosition
             val end = params.startPosition + params.loadSize
             callback.onResult(items.subList(start, end))

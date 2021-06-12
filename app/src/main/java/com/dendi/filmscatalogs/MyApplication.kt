@@ -1,9 +1,9 @@
 package com.dendi.filmscatalogs
 
 import android.app.Application
-import com.dendi.filmscatalogs.core.di.databaseModule
-import com.dendi.filmscatalogs.core.di.networkModule
-import com.dendi.filmscatalogs.core.di.repositoryModule
+import com.dendi.filmcatalogs.core.di.databaseModule
+import com.dendi.filmcatalogs.core.di.networkModule
+import com.dendi.filmcatalogs.core.di.repositoryModule
 import com.dendi.filmscatalogs.di.useCaseModule
 import com.dendi.filmscatalogs.di.viewModelModule
 import org.koin.android.ext.koin.androidContext

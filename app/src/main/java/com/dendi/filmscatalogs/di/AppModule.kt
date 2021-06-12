@@ -1,7 +1,7 @@
 package com.dendi.filmscatalogs.di
 
-import com.dendi.filmscatalogs.core.domain.usecase.FilmInteractor
-import com.dendi.filmscatalogs.core.domain.usecase.FilmUseCase
+import com.dendi.filmcatalogs.core.domain.usecase.FilmInteractor
+import com.dendi.filmcatalogs.core.domain.usecase.FilmUseCase
 import com.dendi.filmscatalogs.detail.DetailActivityViewModel
 import com.dendi.filmscatalogs.favorite.FavoriteViewModel
 import com.dendi.filmscatalogs.home.HomeViewModel

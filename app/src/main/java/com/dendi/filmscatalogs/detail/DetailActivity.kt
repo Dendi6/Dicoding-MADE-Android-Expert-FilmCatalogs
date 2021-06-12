@@ -8,9 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.dendi.filmcatalogs.core.domain.model.Film
 import com.dendi.filmscatalogs.BuildConfig
 import com.dendi.filmscatalogs.R
-import com.dendi.filmscatalogs.core.domain.model.Film
 import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
 import org.koin.android.viewmodel.ext.android.viewModel
 

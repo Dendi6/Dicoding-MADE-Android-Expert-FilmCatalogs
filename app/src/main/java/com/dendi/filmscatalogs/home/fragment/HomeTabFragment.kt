@@ -1,5 +1,6 @@
 package com.dendi.filmscatalogs.home.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dendi.filmcatalogs.core.ui.AdapterItems
+import com.dendi.filmcatalogs.core.vo.Resource
 import com.dendi.filmscatalogs.R
-import com.dendi.filmscatalogs.core.ui.AdapterItems
-import com.dendi.filmscatalogs.core.vo.Resource
+import com.dendi.filmscatalogs.detail.DetailActivity
 import com.dendi.filmscatalogs.home.HomeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -47,6 +49,13 @@ class HomeTabFragment : Fragment() {
         rvItems.layoutManager = GridLayoutManager(context, 3)
         rvItems.setHasFixedSize(true)
         rvItems.adapter = homeAdapter
+
+        homeAdapter.onItemClick = { selectedData ->
+            val intent = Intent(activity, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
+            startActivity(intent)
+        }
+
 
         if (index == 0) {
             homeViewModel.getMovies().observe(viewLifecycleOwner, { listMovie ->
