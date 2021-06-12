@@ -2,3 +2,4 @@ include ':app'
 rootProject.name = "films catalog's"
 include ':core'
 include ':favorite'
+include ':setting'

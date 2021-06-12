@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/films_catalog's.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/films_catalog's.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/films_catalog's.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/films_catalog's.core.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/favorite/films_catalog's.favorite.iml" filepath="$PROJECT_DIR$/.idea/modules/favorite/films_catalog's.favorite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/setting/films_catalog's.setting.iml" filepath="$PROJECT_DIR$/.idea/modules/setting/films_catalog's.setting.iml" />
     </modules>
   </component>
 </project>

@@ -55,6 +55,10 @@ class HomeActivity : AppCompatActivity() {
                 val uri = Uri.parse("filmcatalogs://favorite")
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
+            R.id.settings -> {
+                val uri = Uri.parse("filmcatalogs://settings")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            }
         }
     }
 }

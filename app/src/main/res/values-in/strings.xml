@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- home-->
+    <string name="app_name">films catalogs</string>
+    <string name="movies">Movies</string>
+    <string name="tv_show">Tv Show</string>
+    <string name="share">Berbagi</string>
+    <string name="favorited">Favorited</string>
+    <string name="text_share">Film : %1$s, \n\nOverview : \n%2$s</string>
+
+    <!-- detail-->
+    <string name="title">Judul</string>
+    <string name="overview">Deskripsi</string>
+
+    <string name="title_favorite">Favorite</string>
+    <string name="title_setting">Pengaturan</string>
+    <string name="title_activity_settings">Pengaturan</string>
+</resources>
