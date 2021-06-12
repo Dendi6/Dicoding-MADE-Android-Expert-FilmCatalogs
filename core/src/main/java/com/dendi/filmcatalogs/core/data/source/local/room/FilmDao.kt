@@ -1,7 +1,6 @@
 package com.dendi.filmcatalogs.core.data.source.local.room
 
 import androidx.room.*
-import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

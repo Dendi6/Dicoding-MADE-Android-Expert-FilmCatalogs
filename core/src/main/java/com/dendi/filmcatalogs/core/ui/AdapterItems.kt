@@ -1,6 +1,5 @@
 package com.dendi.filmcatalogs.core.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +39,7 @@ class AdapterItems : RecyclerView.Adapter<AdapterItems.ListViewHolder>() {
                 .load(BuildConfig.IMAGES + "/${data.images}")
                 .into(binding.imageItem)
         }
+
         init {
             binding.root.setOnClickListener {
                 onItemClick?.invoke(listData[adapterPosition])

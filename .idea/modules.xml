@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/films_catalog's.iml" filepath="$PROJECT_DIR$/.idea/modules/films_catalog's.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/films_catalog's.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/films_catalog's.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/films_catalog's.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/films_catalog's.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/favorite/films_catalog's.favorite.iml" filepath="$PROJECT_DIR$/.idea/modules/favorite/films_catalog's.favorite.iml" />
     </modules>
   </component>
 </project>

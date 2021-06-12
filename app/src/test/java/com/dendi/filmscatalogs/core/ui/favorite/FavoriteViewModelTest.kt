@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import androidx.paging.PositionalDataSource
-import com.dendi.filmcatalogs.core.data.FilmRepository
-import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.utils.DataDummy
 import com.dendi.filmscatalogs.favorite.FavoriteViewModel
 import org.junit.Assert
@@ -23,7 +21,7 @@ import java.util.concurrent.Executors
 
 @RunWith(MockitoJUnitRunner::class)
 class FavoriteViewModelTest {
-    private lateinit var viewModel: FavoriteViewModel
+    private lateinit var viewModel: com.dendi.filmscatalogs.favorite.FavoriteViewModel
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -36,12 +34,13 @@ class FavoriteViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = FavoriteViewModel(filmRepository)
+        viewModel = com.dendi.filmscatalogs.favorite.FavoriteViewModel(filmRepository)
     }
 
     @Test
     fun `getFavorited should be success`() {
-        val expected = MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
+        val expected =
+            MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         expected.value = PagedTestDataSources.snapshot(DataDummy.generateDummyMovies())
 
         `when`(filmRepository.getFavorited()).thenReturn(expected)
@@ -58,7 +57,8 @@ class FavoriteViewModelTest {
 
     @Test
     fun `getFavorited should be success but data is empty`() {
-        val expected = MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
+        val expected =
+            MutableLiveData<PagedList<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         expected.value = PagedTestDataSources.snapshot()
 
         `when`(filmRepository.getFavorited()).thenReturn(expected)
@@ -91,7 +91,10 @@ class FavoriteViewModelTest {
             callback.onResult(items, 0, items.size)
         }
 
-        override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>) {
+        override fun loadRange(
+            params: LoadRangeParams,
+            callback: LoadRangeCallback<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>
+        ) {
             val start = params.startPosition
             val end = params.startPosition + params.loadSize
             callback.onResult(items.subList(start, end))

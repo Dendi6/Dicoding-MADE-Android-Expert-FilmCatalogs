@@ -28,7 +28,7 @@ object DataDummy {
         val tvShow = ArrayList<ListEntity>()
 
         tvShow.add(
-           ListEntity(
+            ListEntity(
                 1399,
                 "",
                 "Game of Thrones",

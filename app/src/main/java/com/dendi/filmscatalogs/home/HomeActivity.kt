@@ -1,6 +1,7 @@
 package com.dendi.filmscatalogs.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,7 +9,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.databinding.ActivityHomeBinding
-import com.dendi.filmscatalogs.favorite.FavoriteActivity
 import com.dendi.filmscatalogs.home.fragment.SectionPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -52,8 +52,8 @@ class HomeActivity : AppCompatActivity() {
     private fun setMode(selectedMode: Int) {
         when (selectedMode) {
             R.id.favorited -> {
-                val intent = Intent(this, FavoriteActivity::class.java)
-                startActivity(intent)
+                val uri = Uri.parse("filmcatalogs://favorite")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
     }

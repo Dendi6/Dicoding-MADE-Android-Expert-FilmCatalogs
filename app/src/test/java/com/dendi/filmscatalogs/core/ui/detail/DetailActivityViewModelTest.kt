@@ -3,8 +3,6 @@ package com.dendi.filmscatalogs.core.ui.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.dendi.filmcatalogs.core.data.FilmRepository
-import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
 import com.dendi.filmscatalogs.core.utils.DataDummy
 import com.dendi.filmscatalogs.core.vo.Resource
 import com.dendi.filmscatalogs.detail.DetailActivityViewModel
@@ -90,24 +88,32 @@ class DetailActivityViewModelTest {
     @Test
     fun setFavorite() {
         val dummyData = Resource.success(DataDummy.generateDummyMovies()[0].copy(favorited = false))
-        val dataItem = MutableLiveData<Resource<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
+        val dataItem =
+            MutableLiveData<Resource<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         dataItem.value = dummyData
 
         dummyData.data?.let { doNothing().`when`(filmRepository).setFilmFavorite(it, true) }
         dataItem.value!!.data?.let { viewModel.setFavorite(it, true) }
 
-        verify(filmRepository).setFilmFavorite(dataItem.value?.data as com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity, true)
+        verify(filmRepository).setFilmFavorite(
+            dataItem.value?.data as com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity,
+            true
+        )
     }
 
     @Test
     fun delFavorite() {
         val dummyData = Resource.success(DataDummy.generateDummyMovies()[0].copy(favorited = true))
-        val dataItem = MutableLiveData<Resource<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
+        val dataItem =
+            MutableLiveData<Resource<com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity>>()
         dataItem.value = dummyData
 
         dummyData.data?.let { doNothing().`when`(filmRepository).setFilmFavorite(it, false) }
         dataItem.value!!.data?.let { viewModel.setFavorite(it, false) }
 
-        verify(filmRepository).setFilmFavorite(dataItem.value?.data as com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity, false)
+        verify(filmRepository).setFilmFavorite(
+            dataItem.value?.data as com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity,
+            false
+        )
     }
 }

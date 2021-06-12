@@ -3,9 +3,6 @@ package com.dendi.filmscatalogs.core.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.dendi.filmcatalogs.core.data.source.local.LocalDataSource
-import com.dendi.filmcatalogs.core.data.source.local.entity.ListEntity
-import com.dendi.filmcatalogs.core.data.source.remote.RemoteDataSource
 import com.dendi.filmscatalogs.core.utils.AppExecutors
 import com.dendi.filmscatalogs.core.utils.DataDummy
 import com.dendi.filmscatalogs.core.utils.LiveDataTestUtil
@@ -22,8 +19,10 @@ class FilmRepositoryTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val remote = mock(com.dendi.filmcatalogs.core.data.source.remote.RemoteDataSource::class.java)
-    private val local = mock(com.dendi.filmcatalogs.core.data.source.local.LocalDataSource::class.java)
+    private val remote =
+        mock(com.dendi.filmcatalogs.core.data.source.remote.RemoteDataSource::class.java)
+    private val local =
+        mock(com.dendi.filmcatalogs.core.data.source.local.LocalDataSource::class.java)
     private val appExecutors = mock(AppExecutors::class.java)
 
     private val filmRepository = FakeFilmRepository(remote, local, appExecutors)

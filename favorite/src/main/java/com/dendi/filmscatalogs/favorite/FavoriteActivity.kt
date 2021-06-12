@@ -6,9 +6,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dendi.filmcatalogs.core.ui.AdapterItems
-import com.dendi.filmscatalogs.databinding.ActivityFavoriteBinding
 import com.dendi.filmscatalogs.detail.DetailActivity
+import com.dendi.filmscatalogs.favorite.databinding.ActivityFavoriteBinding
+import com.dendi.filmscatalogs.favorite.di.favoriteModule
 import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class FavoriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFavoriteBinding
@@ -30,6 +32,8 @@ class FavoriteActivity : AppCompatActivity() {
             setDisplayHomeAsUpEnabled(true)
             title = "Favorite"
         }
+
+        loadKoinModules(favoriteModule)
 
         adapter = AdapterItems()
         binding.rvFavorited.layoutManager = GridLayoutManager(this, 3)

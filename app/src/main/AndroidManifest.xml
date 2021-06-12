@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FilmsCatalogs">
-        <activity android:name="com.dendi.filmscatalogs.favorite.FavoriteActivity" />
         <activity
             android:name="com.dendi.filmscatalogs.splashscreen.SplashScreenActivity"
             android:theme="@style/Theme.NoActionBar">
