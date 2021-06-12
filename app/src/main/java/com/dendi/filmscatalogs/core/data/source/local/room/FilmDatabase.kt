@@ -12,22 +12,7 @@ import com.dendi.filmscatalogs.core.data.source.local.entity.ListEntity
     exportSchema = false
 )
 abstract class FilmDatabase : RoomDatabase() {
+
     abstract fun filmDao(): FilmDao
 
-    companion object {
-
-        @Volatile
-        private var INSTANCE: FilmDatabase? = null
-
-        fun getInstance(context: Context): FilmDatabase =
-            INSTANCE ?: synchronized(this) {
-                Room.databaseBuilder(
-                    context.applicationContext,
-                    FilmDatabase::class.java,
-                    "Films.db"
-                ).build().apply {
-                    INSTANCE = this
-                }
-            }
-    }
 }

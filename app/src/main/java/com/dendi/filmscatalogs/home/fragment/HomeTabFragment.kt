@@ -7,17 +7,16 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.core.ui.AdapterItems
-import com.dendi.filmscatalogs.core.ui.ViewModelFactory
 import com.dendi.filmscatalogs.core.vo.Resource
 import com.dendi.filmscatalogs.home.HomeViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeTabFragment : Fragment() {
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
 
     companion object {
         private const val ARG_SECTION_NUMBER = "section_number"
@@ -48,9 +47,6 @@ class HomeTabFragment : Fragment() {
         rvItems.layoutManager = GridLayoutManager(context, 3)
         rvItems.setHasFixedSize(true)
         rvItems.adapter = homeAdapter
-
-        val factory = ViewModelFactory.getInstance(requireActivity())
-        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
         if (index == 0) {
             homeViewModel.getMovies().observe(viewLifecycleOwner, { listMovie ->

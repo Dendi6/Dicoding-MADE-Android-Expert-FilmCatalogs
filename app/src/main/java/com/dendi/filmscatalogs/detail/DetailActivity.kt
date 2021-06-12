@@ -7,17 +7,16 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dendi.filmscatalogs.BuildConfig
 import com.dendi.filmscatalogs.R
 import com.dendi.filmscatalogs.core.domain.model.Film
-import com.dendi.filmscatalogs.core.ui.ViewModelFactory
 import com.dendi.filmscatalogs.databinding.ActivityDetailBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var detailActivityViewModel: DetailActivityViewModel
+    private val detailActivityViewModel: DetailActivityViewModel by viewModel()
 
     private var menu: Menu? = null
 
@@ -35,21 +34,17 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = ViewModelFactory.getInstance(this)
         val film = intent.getParcelableExtra<Film>(EXTRA_DATA) as Film
 
         supportActionBar?.apply {
             elevation = 0f
             setDisplayHomeAsUpEnabled(true)
-            if (film.type == "tv"){
+            if (film.type == "tv") {
                 film.name?.let { setActionBarTitle(it) }
             } else {
                 film.title?.let { setActionBarTitle(it) }
             }
         }
-
-        detailActivityViewModel =
-            ViewModelProvider(this, factory)[DetailActivityViewModel::class.java]
         detailActivityViewModel.setSelectedFilm(film.id)
 
         view(film)

@@ -69,6 +69,11 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
+    //koin
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-viewmodel:$koin_version"
+
     //testing
     testImplementation "junit:junit:$jUnitVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"

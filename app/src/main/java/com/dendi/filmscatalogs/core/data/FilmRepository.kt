@@ -12,27 +12,11 @@ import com.dendi.filmscatalogs.core.vo.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class FilmRepository private constructor(
+class FilmRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IFilmRepository {
-    companion object {
-        @Volatile
-        private var instance: FilmRepository? = null
-
-        fun getInstance(
-            remoteData: RemoteDataSource,
-            localData: LocalDataSource,
-            appExecutors: AppExecutors
-        ): FilmRepository =
-            instance ?: synchronized(this) {
-                instance ?: FilmRepository(remoteData, localData, appExecutors).apply {
-                    instance = this
-                }
-            }
-    }
-
     override fun getAllMovies(): Flow<Resource<List<Film>>> {
         return object :
             NetworkBoundResource<List<Film>, List<ListResponse>>() {
