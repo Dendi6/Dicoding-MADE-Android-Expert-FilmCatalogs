@@ -47,6 +47,8 @@ ext {
     roomVersion = '2.3.0'
     roomRuntimeVersion = '2.3.0'
 
+    leakcanary = '2.4'
+
     jUnitVersion = '4.13.2'
     espressoVersion = '3.3.0'
     mockitoVersion = '3.11.0'
