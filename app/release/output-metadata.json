@@ -5,7 +5,7 @@
     "kind": "Directory"
   },
   "applicationId": "com.dendi.filmscatalogs",
-  "variantName": "processReleaseResources",
+  "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
