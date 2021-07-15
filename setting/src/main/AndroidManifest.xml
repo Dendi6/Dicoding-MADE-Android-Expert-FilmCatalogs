@@ -16,8 +16,7 @@
     </dist:module>
 
     <application>
-        <activity
-            android:name=".SettingsActivity">
+        <activity android:name=".SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
