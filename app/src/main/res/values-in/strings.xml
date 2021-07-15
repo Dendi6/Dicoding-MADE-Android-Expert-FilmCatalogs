@@ -12,7 +12,9 @@
     <string name="title">Judul</string>
     <string name="overview">Deskripsi</string>
 
-    <string name="title_favorite">Favorite</string>
     <string name="title_setting">Pengaturan</string>
-    <string name="title_activity_settings">Pengaturan</string>
+    <string name="title_favorite">Favorit</string>
+
+    <string name="power_connected">Power connected!</string>
+    <string name="power_disconnected">Power disconnected!</string>
 </resources>

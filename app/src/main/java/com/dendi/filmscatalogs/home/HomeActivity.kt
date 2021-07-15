@@ -1,10 +1,14 @@
 package com.dendi.filmscatalogs.home
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import com.dendi.filmscatalogs.R
@@ -14,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var broadcastReceiver: BroadcastReceiver
 
     companion object {
         @StringRes
@@ -60,5 +65,37 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
+    }
+
+    private fun registerBroadCastReceiver() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                when (intent.action) {
+                    Intent.ACTION_POWER_CONNECTED -> {
+                        Toast.makeText(context, R.string.power_connected, Toast.LENGTH_SHORT).show()
+                    }
+                    Intent.ACTION_POWER_DISCONNECTED -> {
+                        Toast.makeText(context, R.string.power_disconnected, Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+        }
+        val intentFilter = IntentFilter()
+        intentFilter.apply {
+            addAction(Intent.ACTION_POWER_CONNECTED)
+            addAction(Intent.ACTION_POWER_DISCONNECTED)
+        }
+        registerReceiver(broadcastReceiver, intentFilter)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerBroadCastReceiver()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(broadcastReceiver)
     }
 }
